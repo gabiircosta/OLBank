@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class BancoOLiveBankApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void main() {
+		BancoOLiveBankApplication.main(new String [] {});
 	}
 
 }
