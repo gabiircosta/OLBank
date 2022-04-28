@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,11 +44,16 @@ class AccountServiceTest {
 
     @Test
     void WHEN_CallSaveMethod_SHOULD_SaveANewAccount() {
-       // Mockito.when(accountRepository)
+
     }
 
     @Test
-    void listAll() {
+    void WHEN_CallListAllMethod_SHOULD_ReturnAListOfAllAccounts() {
+        when(accountRepository.findAll()).thenReturn(List.of(account));
+
+        List<Account> response = accountService.listAll();
+
+        assertNotNull(response);
     }
 
     @Test

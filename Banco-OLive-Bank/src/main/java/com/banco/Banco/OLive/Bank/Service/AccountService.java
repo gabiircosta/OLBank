@@ -2,6 +2,7 @@ package com.banco.Banco.OLive.Bank.Service;
 
 import com.banco.Banco.OLive.Bank.Model.Account;
 import com.banco.Banco.OLive.Bank.Repository.AccountRepository;
+import com.banco.Banco.OLive.Bank.Service.Exception.ObjectNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class AccountService {
     public Account findById(Long id){
         log.info("Finding an account by it's id");
 
-        return accountRepository.findById(id).orElseThrow();
+        return accountRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Account Not Found"));
     }
 
     public Account deposit (Long id, double amountToDeposit){

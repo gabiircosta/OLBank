@@ -24,8 +24,14 @@ public class Customer {
     @Column (name = "customer_cpf")
     private String cpf;
 
-//    @OneToMany (mappedBy = "customer")
-//    @JsonIgnoreProperties ("customer")
-//    private List<Account> balance;
+    public Customer(Long id, String name, String cpf) {
+        this.id = id;
+        this.name = name;
+        this.cpf = cpf;
+    }
+
+    @OneToMany (mappedBy = "customer")
+    @JsonIgnoreProperties ("customer")
+    private List<Account> balance;
 
 }
