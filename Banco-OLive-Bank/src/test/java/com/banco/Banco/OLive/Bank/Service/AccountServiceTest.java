@@ -2,6 +2,7 @@ package com.banco.Banco.OLive.Bank.Service;
 
 import com.banco.Banco.OLive.Bank.Model.Account;
 import com.banco.Banco.OLive.Bank.Repository.AccountRepository;
+import com.banco.Banco.OLive.Bank.Service.Exception.ObjectNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,12 +44,12 @@ class AccountServiceTest {
     }
 
     @Test
-    void WHEN_CallSaveMethod_SHOULD_SaveANewAccount() {
+    void WHEN_CallSaveMethod_THEN_SaveANewAccount() {
 
     }
 
     @Test
-    void WHEN_CallListAllMethod_SHOULD_ReturnAListOfAllAccounts() {
+    void WHEN_CallListAllMethod_THEN_ReturnAListOfAllAccounts() {
         when(accountRepository.findAll()).thenReturn(List.of(account));
 
         List<Account> response = accountService.listAll();
@@ -57,7 +58,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void WHEN_CallFindByIdMethod_SHOULD_ReturnAnAccountInstance() {
+    void WHEN_CallFindByIdMethod_THEN_ReturnAnAccountInstance() {
         when(accountRepository.findById(anyLong())).thenReturn(Optional.ofNullable(account));
 
         Account response = accountService.findById(ID);
@@ -67,6 +68,18 @@ class AccountServiceTest {
         assertEquals(ID, response.getId());
         assertEquals(NAME, response.getName());
         assertEquals(BALANCE, response.getBalance());
+    }
+
+    @Test
+    void WHEN_CallFindByIdMethod_THEN_ReturnANotFoundObject() {
+        when(accountRepository.findById(anyLong())).thenThrow(new ObjectNotFoundException("Account Not Found"));
+
+        try{
+            accountService.findById(ID);
+        } catch (Exception e){
+            assertEquals(ObjectNotFoundException.class, e.getClass());
+            assertEquals("Account Not Found", e.getMessage());
+        }
     }
 
     @Test
