@@ -26,6 +26,7 @@ class AccountServiceTest {
     public static final long ID = 1L;
     public static final String NAME = "Iti";
     public static final double BALANCE = 10.0;
+    public static final int INDEX = 0;
 
     @InjectMocks //instancia real
     private AccountService accountService;
@@ -55,6 +56,12 @@ class AccountServiceTest {
         List<Account> response = accountService.listAll();
 
         assertNotNull(response);
+        assertEquals(1, response.size());
+        assertEquals(Account.class, response.get(INDEX).getClass());
+
+        assertEquals(ID, response.get(INDEX).getId());
+        assertEquals(NAME, response.get(INDEX).getName());
+        assertEquals(BALANCE, response.get(INDEX).getBalance());
     }
 
     @Test
