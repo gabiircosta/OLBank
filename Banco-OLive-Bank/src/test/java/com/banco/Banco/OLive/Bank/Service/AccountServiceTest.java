@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -46,7 +47,11 @@ class AccountServiceTest {
 
     @Test
     void WHEN_CallSaveMethod_THEN_SaveANewAccount() {
+        when(accountRepository.save(any())).thenReturn(account);
 
+        Account response = accountService.save(account);
+
+        assertNotNull(response);
     }
 
     @Test
