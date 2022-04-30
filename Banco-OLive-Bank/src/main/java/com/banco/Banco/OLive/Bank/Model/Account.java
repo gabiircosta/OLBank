@@ -1,15 +1,14 @@
 package com.banco.Banco.OLive.Bank.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "account_tb")
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
 public class Account {
 
@@ -27,4 +26,12 @@ public class Account {
     @ManyToOne
     @JsonIgnoreProperties ("account")
     private Customer customer;
+
+    public Account(Long id, String name, double balance) {
+        this.id = id;
+        this.name = name;
+        this.balance = balance;
+    }
+
+
 }
