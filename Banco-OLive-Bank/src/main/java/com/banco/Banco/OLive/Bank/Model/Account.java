@@ -23,14 +23,15 @@ public class Account {
     @Column (name = "account_balance")
     private double balance;
 
+    @ManyToOne
+    @JsonIgnoreProperties ("account")
+    private Customer customer;
+
     public Account(Long id, String name, double balance) {
         this.id = id;
         this.name = name;
         this.balance = balance;
     }
 
-    @ManyToOne
-    @JsonIgnoreProperties ("account")
-    private Customer customer;
 
 }
